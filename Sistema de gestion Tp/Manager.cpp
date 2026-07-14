@@ -76,17 +76,16 @@ void Manager::registrarVenta()
     fVenta.setMes(mes);
     fVenta.setAnio(anio);
 
-    cout << "\n  TIENDA DE ARTICULOS DEPORTIVOS" << endl;
-    cout << "  --------------------------------" << endl;
-    cout << "  Fecha: " << dia << "/" << mes << "/" << anio << endl;
-    cout << "  Cliente:  " << cli.getApellido() << ", " << cli.getNombre() << endl;
-    cout << "  Vendedor: " << emp.getApellido() << ", " << emp.getNombre() << endl;
-    cout << "  --------------------------------" << endl;
+    // arrays para acumular lineas del ticket
+    char ticketNombre[10][50];
+    int  ticketCantidad[10];
+    float ticketMonto[10];
+    int cantItems = 0;
 
     float montoTicket = 0;
     int agregarOtro = 1;
 
-    while(agregarOtro == 1)
+    while(agregarOtro == 1 && cantItems < 10)
     {
         int posProd = -1;
         do
@@ -136,10 +135,11 @@ void Manager::registrarVenta()
         if(_srvVenta.guardarVenta(nueva))
         {
             _srvProducto.actualizarStock(prod.getIdProducto(), -cantidad);
+            strncpy(ticketNombre[cantItems], prod.getNombre(), 49);
+            ticketCantidad[cantItems] = cantidad;
+            ticketMonto[cantItems]    = montoTotal;
+            cantItems++;
             montoTicket += montoTotal;
-
-            cout << "  " << prod.getNombre() << " x" << cantidad
-                 << "  $" << montoTotal << endl;
         }
         else
         {
@@ -151,6 +151,18 @@ void Manager::registrarVenta()
         if(cin.fail()) { cin.clear(); limpiarBuffer(); agregarOtro = 0; }
     }
 
+    cout << "\n  TIENDA DE ARTICULOS DEPORTIVOS" << endl;
+    cout << "  --------------------------------" << endl;
+    cout << "  Fecha:    " << dia << "/" << mes << "/" << anio << endl;
+    cout << "  Cliente:  " << cli.getApellido() << ", " << cli.getNombre() << endl;
+    cout << "  Vendedor: " << emp.getApellido() << ", " << emp.getNombre() << endl;
+    cout << "  --------------------------------" << endl;
+    for(int i = 0; i < cantItems; i++)
+    {
+        cout << "  " << ticketNombre[i]
+             << " x" << ticketCantidad[i]
+             << "  $" << ticketMonto[i] << endl;
+    }
     cout << "  --------------------------------" << endl;
     cout << "  TOTAL:    $" << montoTicket << endl;
     cout << "  --------------------------------" << endl;
