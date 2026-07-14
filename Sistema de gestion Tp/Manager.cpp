@@ -84,6 +84,7 @@ void Manager::registrarVenta()
 
     float montoTicket = 0;
     int agregarOtro = 1;
+    int idVenta = _srvVenta.getCantidadRegistros() + 1;
 
     while(agregarOtro == 1 && cantItems < 10)
     {
@@ -121,8 +122,6 @@ void Manager::registrarVenta()
         float montoTotal = cantidad * prod.getPrecio();
 
         Venta nueva;
-        int idVenta = _srvVenta.getCantidadRegistros() + 1;
-
         nueva.setIdVenta(idVenta);
         nueva.setIdCliente(cli.getIdPersona());
         nueva.setIdEmpleado(emp.getIdPersona());
@@ -153,6 +152,7 @@ void Manager::registrarVenta()
 
     cout << "\n  TIENDA DE ARTICULOS DEPORTIVOS" << endl;
     cout << "  --------------------------------" << endl;
+    cout << "  Venta N " << idVenta << endl;
     cout << "  Fecha:    " << dia << "/" << mes << "/" << anio << endl;
     cout << "  Cliente:  " << cli.getApellido() << ", " << cli.getNombre() << endl;
     cout << "  Vendedor: " << emp.getApellido() << ", " << emp.getNombre() << endl;
