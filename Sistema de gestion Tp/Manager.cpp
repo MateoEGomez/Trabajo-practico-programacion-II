@@ -126,12 +126,28 @@ void Manager::registrarVenta()
     if(_srvVenta.guardarVenta(nueva))
     {
         _srvProducto.actualizarStock(prod.getIdProducto(), -cantidad);
-        cout << "\nVenta N " << idVenta << " confirmada. Monto Total: $" << montoTotal << endl;
+
+        cout << "\n  TIENDA DE ARTICULOS DEPORTIVOS" << endl;
+        cout << "  --------------------------------" << endl;
+        cout << "  Venta N " << idVenta << endl;
+        cout << "  Fecha: " << dia << "/" << mes << "/" << anio << endl;
+        cout << "  --------------------------------" << endl;
+        cout << "  Cliente:  " << cli.getApellido() << ", " << cli.getNombre() << endl;
+        cout << "  Vendedor: " << emp.getApellido() << ", " << emp.getNombre() << endl;
+        cout << "  --------------------------------" << endl;
+        cout << "  Producto: " << prod.getNombre() << endl;
+        cout << "  Codigo:   " << prod.getCodigo() << endl;
+        cout << "  Precio:   $" << prod.getPrecio() << endl;
+        cout << "  Cantidad: " << cantidad << endl;
+        cout << "  --------------------------------" << endl;
+        cout << "  TOTAL:    $" << montoTotal << endl;
+        cout << "  --------------------------------" << endl;
     }
     else
     {
         cout << "\nError al intentar registrar la venta." << endl;
     }
+    system("pause");
 }
 
 void Manager::consultarVentas()
