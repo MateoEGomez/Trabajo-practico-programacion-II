@@ -108,7 +108,7 @@
 1782187696 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\horarios.h
 	"Fecha.h"
 
-1782252044 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\validaciones.cpp
+1782709589 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\validaciones.cpp
 	<iostream>
 	<cstring>
 	<cctype>
@@ -128,7 +128,7 @@
 1782707513 c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\menu.h
 	"Manager.h"
 
-1782707545 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\menu.cpp
+1782709577 source:c:\users\gomez\onedrive\documentos\github\trabajo-practico-programacion-ii\sistema de gestion tp\menu.cpp
 	<iostream>
 	<cstdlib>
 	"Menu.h"
