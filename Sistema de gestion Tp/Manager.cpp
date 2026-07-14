@@ -160,9 +160,7 @@ void Manager::consultarVentas()
         }
     }
     cout << "---------------------------------------------------------------------" << endl;
-    limpiarBuffer();
-    cout << "\nPresione ENTER para continuar...";
-    cin.get();
+    system("pause");
 }
 
 void Manager::modificarVenta()
@@ -429,9 +427,7 @@ void Manager::listarEmpleados()
         }
         cout << "---------------------------------------------------------------------" << endl;
         delete[] lista;
-        limpiarBuffer();
-        cout << "\nPresione ENTER para continuar...";
-        cin.get();
+        system("pause");
     }
 }
 
@@ -669,9 +665,7 @@ void Manager::listarClientes()
         }
         cout << "---------------------------------------------------------------------" << endl;
         delete[] lista;
-        limpiarBuffer();
-        cout << "\nPresione ENTER para continuar...";
-        cin.get();
+        system("pause");
     }
 }
 
@@ -904,9 +898,7 @@ void Manager::consultarHorasTrabajadas()
     cout << "\n El empleado " << emp.getApellido() << " ha trabajado un total de "
          << (minutosAcumulados / 60) << " horas y " << (minutosAcumulados % 60)
          << " minutos registrados." << endl;
-    limpiarBuffer();
-    cout << "\nPresione ENTER para continuar...";
-    cin.get();
+    system("pause");
 }
 
 
@@ -925,8 +917,7 @@ void Manager::reporteRecaudacionTotal()
 
     cout << " El total neto facturado por la tienda es: $" << total << endl;
     cout << "=================================================" << endl;
-    cout << "\nPresione ENTER para continuar...";
-    cin.get();
+    system("pause");
 }
 
 void Manager::reporteRecaudacionAnual()
@@ -962,8 +953,7 @@ void Manager::reporteRecaudacionAnual()
 
     cout << "\n Recaudacion total del anio " << anio << ": $" << total << endl;
     cout << "=================================================" << endl;
-    cout << "\nPresione ENTER para continuar...";
-    cin.get();
+    system("pause");
 }
 
 void Manager::reporteRecaudacionMensual()
@@ -1005,8 +995,7 @@ void Manager::reporteRecaudacionMensual()
 
     cout << "\n Recaudacion del periodo " << mes << "/" << anio << ": $" << total << endl;
     cout << "=================================================" << endl;
-    cout << "\nPresione ENTER para continuar...";
-    cin.get();
+    system("pause");
 }
 
 void Manager::reporteRecaudacionPorEmpleado()
@@ -1072,8 +1061,7 @@ void Manager::reporteRecaudacionPorEmpleado()
     cout << "\n Empleado: " << emp.getApellido() << ", " << emp.getNombre() << endl;
     cout << " Total recaudado en el rango: $" << total << endl;
     cout << "=================================================" << endl;
-    cout << "\nPresione ENTER para continuar...";
-    cin.get();
+    system("pause");
 }
 
 void Manager::reporteCantidadPorCategoria()
@@ -1137,8 +1125,7 @@ void Manager::reporteCantidadPorCategoria()
 
     cout << "\n Total de unidades comercializadas de este rubro: " << unidades << " un." << endl;
     cout << "=================================================" << endl;
-    cout << "\nPresione ENTER para continuar...";
-    cin.get();
+    system("pause");
 }
 
                 //PRODUCTOS
@@ -1261,9 +1248,7 @@ void Manager::listarProductos()
         }
         cout << "---------------------------------------------------------------------" << endl;
         delete[] lista;
-        limpiarBuffer();
-        cout << "\nPresione ENTER para continuar...";
-        cin.get();
+        system("pause");
     }
 }
 
