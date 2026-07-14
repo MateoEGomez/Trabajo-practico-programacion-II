@@ -56,38 +56,6 @@ void Manager::registrarVenta()
     Empleado emp = _srvEmpleado.leerEmpleado(posEmp);
 
 
-    int posProd = -1;
-    do
-    {
-        cout << " Ingrese Codigo del Producto: ";
-        cin >> setw(30) >> codigoProd;
-        posProd = _srvProducto.buscarPorCodigo(codigoProd);
-
-        if(posProd == -1)
-        {
-            cout << "   Error: El articulo no existe o fue dado de baja." << endl;
-            if(!reintentarOVolver()) return;
-        }
-    } while(posProd == -1);
-
-    Producto prod = _srvProducto.leerProducto(posProd);
-
-    do
-    {
-        cout << " Cantidad a faturar (Stock disponible: " << prod.getStock() << "): ";
-        cin >> cantidad;
-        entradaValida = !cin.fail() && cantidad > 0 && cantidad <= prod.getStock();
-
-        if(!entradaValida)
-        {
-            cout << "   Error: Cantidad no valida o stock insuficiente." << endl;
-            cin.clear();
-            limpiarBuffer();
-            if(!reintentarOVolver()) return;
-        }
-    } while(!entradaValida);
-
-
     do
     {
         cout << " Ingrese Dia, Mes y Anio (Ejemplo: 24 5 2026): ";
@@ -108,45 +76,84 @@ void Manager::registrarVenta()
     fVenta.setMes(mes);
     fVenta.setAnio(anio);
 
-    float montoTotal = cantidad * prod.getPrecio();
+    cout << "\n  TIENDA DE ARTICULOS DEPORTIVOS" << endl;
+    cout << "  --------------------------------" << endl;
+    cout << "  Fecha: " << dia << "/" << mes << "/" << anio << endl;
+    cout << "  Cliente:  " << cli.getApellido() << ", " << cli.getNombre() << endl;
+    cout << "  Vendedor: " << emp.getApellido() << ", " << emp.getNombre() << endl;
+    cout << "  --------------------------------" << endl;
 
+    float montoTicket = 0;
+    int agregarOtro = 1;
 
-    Venta nueva;
-    int idVenta = _srvVenta.getCantidadRegistros() + 1;
-
-    nueva.setIdVenta(idVenta);
-    nueva.setIdCliente(cli.getIdPersona());
-    nueva.setIdEmpleado(emp.getIdPersona());
-    nueva.setIdProducto(prod.getIdProducto());
-    nueva.setCantidad(cantidad);
-    nueva.setMontoTotal(montoTotal);
-    nueva.setFechaVenta(fVenta);
-    nueva.setActivo(true);
-
-    if(_srvVenta.guardarVenta(nueva))
+    while(agregarOtro == 1)
     {
-        _srvProducto.actualizarStock(prod.getIdProducto(), -cantidad);
+        int posProd = -1;
+        do
+        {
+            cout << " Ingrese Codigo del Producto: ";
+            cin >> setw(30) >> codigoProd;
+            posProd = _srvProducto.buscarPorCodigo(codigoProd);
 
-        cout << "\n  TIENDA DE ARTICULOS DEPORTIVOS" << endl;
-        cout << "  --------------------------------" << endl;
-        cout << "  Venta N " << idVenta << endl;
-        cout << "  Fecha: " << dia << "/" << mes << "/" << anio << endl;
-        cout << "  --------------------------------" << endl;
-        cout << "  Cliente:  " << cli.getApellido() << ", " << cli.getNombre() << endl;
-        cout << "  Vendedor: " << emp.getApellido() << ", " << emp.getNombre() << endl;
-        cout << "  --------------------------------" << endl;
-        cout << "  Producto: " << prod.getNombre() << endl;
-        cout << "  Codigo:   " << prod.getCodigo() << endl;
-        cout << "  Precio:   $" << prod.getPrecio() << endl;
-        cout << "  Cantidad: " << cantidad << endl;
-        cout << "  --------------------------------" << endl;
-        cout << "  TOTAL:    $" << montoTotal << endl;
-        cout << "  --------------------------------" << endl;
+            if(posProd == -1)
+            {
+                cout << "   Error: El articulo no existe o fue dado de baja." << endl;
+                if(!reintentarOVolver()) return;
+            }
+        } while(posProd == -1);
+
+        Producto prod = _srvProducto.leerProducto(posProd);
+
+        do
+        {
+            cout << " Cantidad (Stock disponible: " << prod.getStock() << "): ";
+            cin >> cantidad;
+            entradaValida = !cin.fail() && cantidad > 0 && cantidad <= prod.getStock();
+
+            if(!entradaValida)
+            {
+                cout << "   Error: Cantidad no valida o stock insuficiente." << endl;
+                cin.clear();
+                limpiarBuffer();
+                if(!reintentarOVolver()) return;
+            }
+        } while(!entradaValida);
+
+        float montoTotal = cantidad * prod.getPrecio();
+
+        Venta nueva;
+        int idVenta = _srvVenta.getCantidadRegistros() + 1;
+
+        nueva.setIdVenta(idVenta);
+        nueva.setIdCliente(cli.getIdPersona());
+        nueva.setIdEmpleado(emp.getIdPersona());
+        nueva.setIdProducto(prod.getIdProducto());
+        nueva.setCantidad(cantidad);
+        nueva.setMontoTotal(montoTotal);
+        nueva.setFechaVenta(fVenta);
+        nueva.setActivo(true);
+
+        if(_srvVenta.guardarVenta(nueva))
+        {
+            _srvProducto.actualizarStock(prod.getIdProducto(), -cantidad);
+            montoTicket += montoTotal;
+
+            cout << "  " << prod.getNombre() << " x" << cantidad
+                 << "  $" << montoTotal << endl;
+        }
+        else
+        {
+            cout << "\n  Error al registrar el producto." << endl;
+        }
+
+        cout << " Agregar otro producto? (1 = SI / 0 = NO): ";
+        cin >> agregarOtro;
+        if(cin.fail()) { cin.clear(); limpiarBuffer(); agregarOtro = 0; }
     }
-    else
-    {
-        cout << "\nError al intentar registrar la venta." << endl;
-    }
+
+    cout << "  --------------------------------" << endl;
+    cout << "  TOTAL:    $" << montoTicket << endl;
+    cout << "  --------------------------------" << endl;
     system("pause");
 }
 
